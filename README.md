@@ -30,3 +30,5 @@ If you have suggestions, please, submit a Pull Request.
 2. Clone the repository
 3. Change the variables 'vars/user-list.yml'
 4. Update the usernames in the groups for 'task/create-group.yml'
+
+Note: The password to access the Console will be saved in the "passwordfile" file.
