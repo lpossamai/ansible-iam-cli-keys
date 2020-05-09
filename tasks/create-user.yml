@@ -1,122 +1,138 @@
 ---
+# Creates the IAM users
+- name: Create new IAM users with API keys and console access
+  iam:
+    iam_type: user
+    name: "{{ item }}"
+    state: present
+    password: "{{ lookup('password', 'passwordfile chars=ascii_letters') }}"
+    update_password: on_create
+  loop:
+    - "{{ user0 }}"
+    - "{{ user1 }}"
+    - "{{ user2 }}"
+    - "{{ user3 }}"
+    - "{{ user4 }}"
+    - "{{ user5 }}"
+
 # List access keys for users
 - name: list access key for users
   command: aws iam list-access-keys --user-name {{ item }}
   register: list_user_keys
   with_items:
-    - "{{user0}}"
-    - "{{user1}}"
-    - "{{user2}}"
-    - "{{user3}}"
-    - "{{user4}}"
-    - "{{user5}}"
+    - "{{ user0 }}"
+    - "{{ user1 }}"
+    - "{{ user2 }}"
+    - "{{ user3 }}"
+    - "{{ user4 }}"
+    - "{{ user5 }}"
 
 # Store keys for further usage
-- name: Store {{user0}} key for further usage
+- name: Store {{ user0 }} key for further usage
   set_fact:
     key0user0: "{{ list_user_keys.results[0].stdout | from_json }}"
   when:
    - list_user_keys.results[0].stdout != ""
 
-- name: Store {{user1}} key for further usage
+- name: Store {{ user1 }} key for further usage
   set_fact:
     key1user1: "{{ list_user_keys.results[1].stdout | from_json }}"
   when:
    - list_user_keys.results[1].stdout != ""
 
-- name: Store {{user2}} key for further usage
+- name: Store {{ user2 }} key for further usage
   set_fact:
     key2user2: "{{ list_user_keys.results[2].stdout | from_json }}"
   when:
    - list_user_keys.results[2].stdout != ""
 
-- name: Store {{user3}} key for further usage
+- name: Store {{ user3 }} key for further usage
   set_fact:
     key3user3: "{{ list_user_keys.results[3].stdout | from_json }}"
   when:
    - list_user_keys.results[3].stdout != ""
 
-- name: Store {{user4}} key for further usage
+- name: Store {{ user4 }} key for further usage
   set_fact:
     key4user4: "{{ list_user_keys.results[4].stdout | from_json }}"
   when:
    - list_user_keys.results[4].stdout != ""
 
-- name: Store {{user5}} key for further usage
+- name: Store {{ user5 }} key for further usage
   set_fact:
     key5user5: "{{ list_user_keys.results[5].stdout | from_json }}"
   when:
    - list_user_keys.results[5].stdout != ""
 
 # Create the API Access and Secret keys if needed
-- name: create access key for {{user0}}
-  command: aws iam create-access-key --user-name {{user0}}
+- name: create access key for {{ user0 }}
+  command: aws iam create-access-key --user-name {{ user0 }}
   register: user0_key
   when:
    - key0user0.AccessKeyMetadata | length == 0
 
-- name: create access key for {{user1}}
-  command: aws iam create-access-key --user-name {{user1}}
+- name: create access key for {{ user1 }}
+  command: aws iam create-access-key --user-name {{ user1 }}
   register: user1_key
   when:
     - key1user1.AccessKeyMetadata | length == 0
 
-- name: create access key for {{user2}}
-  command: aws iam create-access-key --user-name {{user2}}
+- name: create access key for {{ user2 }}
+  command: aws iam create-access-key --user-name {{ user2 }}
   register: user2_key
   when:
     - key2user2.AccessKeyMetadata | length == 0
 
-- name: create access key for {{user3}}
-  command: aws iam create-access-key --user-name {{user3}}
+- name: create access key for {{ user3 }}
+  command: aws iam create-access-key --user-name {{ user3 }}
   register: user3_key
   when:
     - key3user3.AccessKeyMetadata | length == 0
 
-- name: create access key for {{user4}}
-  command: aws iam create-access-key --user-name {{user4}}
+- name: create access key for {{ user4 }}
+  command: aws iam create-access-key --user-name {{ user4 }}
   register: user4_key
   when:
     - key4user4.AccessKeyMetadata | length == 0
 
-- name: create access key for {{user5}}
-  command: aws iam create-access-key --user-name {{user5}}
+- name: create access key for {{ user5 }}
+  command: aws iam create-access-key --user-name {{ user5 }}
   register: user5_key
   when:
     - key5user5.AccessKeyMetadata | length == 0
 
 # Show nearly created Access and Secret keys
-- name: Show nearly created Access and Secret keys for {{user0}}
+- name: Show nearly created Access and Secret keys for {{ user0 }}
   debug:
     msg: "{{ user0_key.stdout_lines }}"
   when:
    - key0user0.AccessKeyMetadata | length == 0
 
-- name: Show nearly created Access and Secret keys for {{user1}}
+- name: Show nearly created Access and Secret keys for {{ user1 }}
   debug:
     msg: "{{ user1_key.stdout_lines }}"
   when:
    - key1user1.AccessKeyMetadata | length == 0
 
-- name: Show nearly created Access and Secret keys for {{user2}}
+- name: Show nearly created Access and Secret keys for {{ user2 }}
   debug:
     msg: "{{ user2_key.stdout_lines }}"
   when:
    - key2user2.AccessKeyMetadata | length == 0
 
-- name: Show nearly created Access and Secret keys for {{user3}}
+- name: Show nearly created Access and Secret keys for {{ user3 }}
   debug:
     msg: "{{ user3_key.stdout_lines }}"
   when:
    - key3user3.AccessKeyMetadata | length == 0
 
-- name: Show nearly created Access and Secret keys for {{user4}}
+- name: Show nearly created Access and Secret keys for {{ user4 }}
   debug:
     msg: "{{ user4_key.stdout_lines }}"
   when:
    - key4user4.AccessKeyMetadata | length == 0
 
-- name: Show nearly created Access and Secret keys for {{user5}}
+- name: Show nearly created Access and Secret keys for {{ user5 }}
   debug:
     msg: "{{ user5_key.stdout_lines }}"
   when:

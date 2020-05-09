@@ -6,8 +6,8 @@
     managed_policy:
       - arn:aws:iam::aws:policy/AdministratorAccess
     users:
-      - {{user0}}
-      - {{user1}}
+      - "{{ user0 }}"
+      - "{{ user1 }}"
     state: present
 
 # Create the ReadOnly group and attach a managed policy using its ARN
@@ -17,8 +17,8 @@
     managed_policy:
       - arn:aws:iam::aws:policy/ReadOnlyAccess
     users:
-      - {{user2}}
-      - {{user3}}
-      - {{user4}}
-      - {{user5}}
+      - "{{ user2 }}"
+      - "{{ user3 }}"
+      - "{{ user4 }}"
+      - "{{ user5 }}"
     state: present
