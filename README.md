@@ -4,7 +4,7 @@ Creating the retrieving the IAM Access and Secret Access Keys using Ansible.
 
 ### Ansible IAM module
 
-As per May 2020, the [IAM Ansible module](https://docs.ansible.com/ansible/latest/modules/iam_module.html) allows you to create the AWS [IAM Access Key](https://docs.ansible.com/ansible/latest/modules/iam_module.html#parameter-access_key_state), but unfortunately, [it does not allow you to create the Secret Access Key](https://stackoverflow.com/a/61624771/11053962).
+As per May 2020, the [IAM Ansible module](https://docs.ansible.com/ansible/latest/modules/iam_module.html) allows you to create the AWS [IAM Access Key](https://docs.ansible.com/ansible/latest/modules/iam_module.html#parameter-access_key_state), but unfortunately, [it does not allow you to retrive the nearly created Secret Access Key](https://stackoverflow.com/a/61624771/11053962).
 
 I was trying to automate the creation of my IAM users and had to come up with a workaround.
 
