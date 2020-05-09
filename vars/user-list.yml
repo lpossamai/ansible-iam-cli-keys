@@ -1,0 +1,11 @@
+---
+
+# FullAdmins Group
+user0: "testuser1"
+user1: "testuser2"
+
+# ReadOnly Group
+user2: "testuser3"
+user3: "testuser4"
+user4: "testuser5"
+user5: "testuser6"

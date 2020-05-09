@@ -1,0 +1,21 @@
+---
+- name: "Starting the tasks: Creates IAM Policy, group, Role and User"
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - vars/user-list.yml
+
+  tasks:
+
+# Creates the users and access and secret keys
+  - include: tasks/create-user.yml
+    tags: user
+
+# Creates the groups (Admin, ReadOnly, etc)
+  - include: tasks/create-group.yml
+    tags: group
+
+# Apply IAM Password Policies, group policies, etc
+  - include: tasks/create-apply-policy.yml
+    tags: policy

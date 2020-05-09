@@ -1,0 +1,24 @@
+---
+# Create the FullAdmins group and attach a managed policy using its ARN
+- name: Create the FullAdmins group and attach the AdministratorAccess policy using its ARN
+  iam_group:
+    name: FullAdmins
+    managed_policy:
+      - arn:aws:iam::aws:policy/AdministratorAccess
+    users:
+      - {{user0}}
+      - {{user1}}
+    state: present
+
+# Create the ReadOnly group and attach a managed policy using its ARN
+- name: Create the ReadOnly group and attach the ReadOnlyAccess policy using its ARN
+  iam_group:
+    name: ReadOnly
+    managed_policy:
+      - arn:aws:iam::aws:policy/ReadOnlyAccess
+    users:
+      - {{user2}}
+      - {{user3}}
+      - {{user4}}
+      - {{user5}}
+    state: present

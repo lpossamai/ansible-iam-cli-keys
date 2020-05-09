@@ -1,0 +1,35 @@
+---
+# Apply FORCE-MFA policy to the ReadOnly group
+# The policy Force-MFA will force users to activate the MFA authentication,
+# otherwise they'll not be able to do anything.
+# More information can be found here: https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html
+- name: Create and assign the Force-MFA policy ReadOnly
+  iam_policy:
+    iam_type: group
+    iam_name: ReadOnly
+    policy_name: Force-MFA
+    state: present
+    policy_document: template/force-mfa-policy.json
+
+# Apply FORCE-MFA policy to the FullAdmins group
+- name: Create and assign the Force-MFA policy FullAdmins
+  iam_policy:
+    iam_type: group
+    iam_name: FullAdmins
+    policy_name: Force-MFA
+    state: present
+    policy_document: template/force-mfa-policy.json
+
+# Apply a password policy
+- name: Apple password policy for AWS account
+  iam_password_policy:
+    state: present
+    min_pw_length: 16
+    require_symbols: false
+    require_numbers: true
+    require_uppercase: true
+    require_lowercase: true
+    allow_pw_change: true
+    pw_max_age: 60
+    pw_reuse_prevent: 5
+    pw_expire: false
