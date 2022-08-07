@@ -103,7 +103,7 @@
                 "BoolIfExists": {
                     "aws:MultiFactorAuthPresent": "false"
                 }
-            } 
+            }
         }
     ]
 }
